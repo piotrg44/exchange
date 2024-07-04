@@ -19,14 +19,24 @@ public class PersonalIdentyficationNumberUtils {
     public static void validateAgeFromPesel(String personalIdentyficationNumber) {
         int year = Integer.parseInt(personalIdentyficationNumber.substring(0, 2));
         int month = Integer.parseInt(personalIdentyficationNumber.substring(2, 4));
+        int day = Integer.parseInt(personalIdentyficationNumber.substring(4, 6));
 
-        if (month > 20) {
-            year += 2000;
-        } else {
+        if (month >= 1 && month <= 12) {
             year += 1900;
+        } else if (month >= 21 && month <= 32) {
+            year += 2000;
+            month -= 20;
         }
 
-        if (!((LocalDate.now().getYear() - year) >= 18)) {
+        LocalDate birthDate = LocalDate.of(year, month, day);
+        LocalDate currentDate = LocalDate.now();
+
+        int age = currentDate.getYear() - birthDate.getYear();
+        if (birthDate.plusYears(age).isAfter(currentDate)) {
+            age--;
+        }
+
+        if (age < 18) {
             throw new PersonIsNotAdultException(PROPER_AGE_OF_PERSON);
         }
     }

@@ -1,0 +1,15 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driverClassName: org.h2.Driver
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-1.0.xml
+nbp:
+  address: http://api.nbp.pl/api

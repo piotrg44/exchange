@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PersonService {
 
+    private static final String PLN_CURRENCY = "PLN";
+
     private final PersonRepository personRepository;
     private final NbpService nbpService;
 
@@ -37,7 +39,7 @@ public class PersonService {
                 .personIdentityNumber(personIdentityNumber)
                 .account(Account.builder()
                         .amount(new BigDecimal(personDTO.getAccountValue()))
-                        .currency("PLN")
+                        .currency(PLN_CURRENCY)
                         .build())
                 .build());
     }
